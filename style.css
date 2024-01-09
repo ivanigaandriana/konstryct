@@ -22,8 +22,6 @@ html,body{
 .wrapper{
     min-height: 100%;
     overflow: clip;
-    display: flex;
-    flex-direction: row;
    
 }
 
@@ -59,23 +57,6 @@ button{
     background-color:transparent;
 }
 .header{
-    z-index: 50;
-    width: 100%;
-    top: 0;
-    left: 0;
-    position: absolute;
-}
-.header__container{
-   display: flex;
-   justify-content: center;
-}
-.header__logo{
-    padding-top: 40px;
-    /* padding-bottom: 5px; */
-    
-  
-}
-.main{
     background-image: url(./img/bg.png);
     background-repeat:repeat;
     background-position: 50% 50%;
@@ -83,15 +64,20 @@ button{
     margin-right: auto;
     margin-left: auto;
     max-width: 1438px;
-    height: 770px;
+    width: 100%;
+    height: 100%;
     text-align: center;
 }
-.main__content{
-
+.header__content{
+   display: flex;
+   justify-content: center;
 }
-.main__title{
+.header__logo{
+    padding-top: 40px; 
+}
+.herrou__title{
     color: #FFF;
-padding-top: 360px;
+padding-top: 320px;
 text-align: center;
 font-family: "BebasNeueBold";
 font-size: 60px;
@@ -101,7 +87,14 @@ line-height: normal;
 margin-bottom: 20px;
 
 }
-.main__label{
+@media (max-width:780px) {
+   .herrou__title{
+    padding-top:260px ;
+    font-size: 40px;
+   }
+}
+.herrou__label,
+.herrou__name{
     color: #FFF;
 text-align: center;
 font-family: "OpenSans";
@@ -110,30 +103,17 @@ font-style: normal;
 font-weight: 600;
 line-height: normal;
 }
-.main__name{
-    color: #FFF;
-font-family: "OpenSans";
-font-size: 11px;
-font-style: normal;
-font-weight: 600;
-line-height: normal;
+.herrou__name{
+ font-size: 11px;
 margin-top: 220px;
-margin-bottom: 70px;
+padding-bottom: 70px;
 }
-.main__img{
-    position: relative;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-}
-.main__container{
-    /* position:absolute;
-    z-index: 2;
-    width: 100%;
-    top: 0;
-    left: 0; */
-
+@media(max-width:780px){
+    .header {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Додаємо цей стиль для адаптивного фона */
+    }
 }
 .navigation__container{
 display: flex;
@@ -146,15 +126,116 @@ margin-bottom: 60px;
 .nav__logo{
     transform: translateY(20%);
 }
-.nav__menu{
+.nav__body{
     display: flex;
     justify-content: space-between;
     column-gap: 40px;
 }
+.burger {
+    display: none; /* Початково ховаємо кнопку бургера */
+}
+
+.burger-line {
+    width: 40px;
+    height: 30px;
+    background-color: #333;
+    margin: 6px 0;
+    display: block;
+    transition: 0.4s;
+}
+
+/* Стилі для мобільного режиму */
+@media screen and (max-width: 700px) {
+   .burger{
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 30px;
+    background-color: transparent;
+    color: #000;
+   }
+   .burger-line{
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 50%;
+    left:0;
+    /* background-color: #333; */
+    background-color: currentColor;
+    transition-duration: 0.4s;
+   }
+   .burger::before,
+   .burger::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    top: 0;
+    transform: translateX(-50%);
+    transition-duration: 0.4s;
+    background-color: currentColor;
+   }
+   .burger::before{
+    top: 0;
+   }
+   .burger::after{
+    top:10px;
+   }
+
+   
+   .burger.is-active .burger-line{
+    transform: scale(0);
+   background-color: #f50808;
+transition-duration: 0.5s;
+   }
+   .burger.is-active::before{
+    transform: rotate(-50deg);
+    top: 50%;
+    transition-duration: 0.5s;
+   }
+   .burger.is-active::after{
+    transform: rotate(50deg);
+    top: 50%;
+    transition-duration: 0.5s;
+   }
+   .nav__list{
+    position: absolute;
+    right: 70px;
+    width: 300px;
+    flex-direction: column;
+    padding: 30px;
+    gap: 20px;
+    text-align: center;
+    background-color:#191919;
+    opacity: 0;
+    transform: translateX(200%);
+   }
+   .nav__list.open{
+    z-index: 1;
+    opacity: 1;
+    transform: translateX(0);
+    margin-bottom: 20px;
+   }
+   .nav__item a{
+    font-size: 20px;
+   }
+}
+
+.nav__item{
+  
+font-size: 17px;
+font-style: normal;
+font-weight: 400;
+line-height: 27px;
+}
 .nav__list{
+    display: flex;
+    gap:40px;
+}
+.nav__item{
     position: relative;
 }
-.nav__list::after
+.nav__item::after
 {
     content: "";
     position: absolute;
@@ -168,10 +249,10 @@ transform: scaleX(0);
     transition:all 1s ease;
     /* text-decoration:underline; */
 }
-.nav__list:hover{
+.nav__item:hover{
 color:green;
 }
-.nav__list:hover::after{
+.nav__item:hover::after{
 transform: scaleX(1);
  transition:all 1s ease;
 }
@@ -184,7 +265,9 @@ font-weight: 700;
 line-height: normal;
 /* letter-spacing: 1.091px; */
 }
-
+.story__container{
+    height: 100%;
+}
 .story__box{
     position: relative;
     display: grid;
@@ -214,6 +297,26 @@ line-height: normal;
 .story__content{
     width: 405.076px;
 }
+@media(max-width:480px){
+    .story__content{
+        width: 100%;
+    }
+}
+@media(max-width:1070px){
+    .story__content{
+        display: block;
+        text-align: center;
+        margin-right: auto;
+        margin-left: auto;
+       
+    }
+    .story__box{
+        display: block;
+        text-align: center;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
 .story__label{
     color: #48555B;
     width: 405.076px;
@@ -225,6 +328,11 @@ line-height: normal;
     line-height: normal;
     margin-bottom: 30px;
     letter-spacing: 0.188px;
+}
+@media(max-width:480px){
+    .story__label{
+        width: 100%;
+    }
 }
 .label-blue{
     color: #16ACE8;
@@ -241,12 +349,21 @@ font-weight: 400;
 line-height: 23px; /* 176.923% */
 letter-spacing: 0.188px;
 }
+@media(max-width:480px){
+    .story__text{
+        width: 100%;
+    }
+}
+
 .work-img{
     display: flex;
     gap: 165px;
-    /* justify-content:space-around; */
-    /* margin-top: 75px; */
     margin-bottom: 120px;
+}
+@media(max-width:1070px){
+    .work-img{
+        display: none;
+    }
 }
 .work__list{
     position: relative;
@@ -283,6 +400,15 @@ font-style: normal;
 font-weight: 700;
 line-height: normal;
 }
+@media (max-width:920px){
+    .cap__title{
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .cap__title::after{
+        width: 100%;
+    }
+}
 .cap__title::after{
     content: "";
     width: 25%;
@@ -293,10 +419,21 @@ line-height: normal;
     margin-top: 5px;
     margin-bottom: 80px;
 }
+@media(max-width:920px){
+    .cap__title::after{
+        transform: translateX(70px);
+    }
+}
 .cap__contecst{
 display: flex;
 justify-content: space-between;
 align-items: center;
+}
+@media (max-width:920px){
+    .cap__contecst{
+        display: block;
+        text-align: center;
+    }
 }
 .cap__label{
     color: #48555B;
@@ -312,6 +449,23 @@ letter-spacing: 0.2px;
 .cap__box{
     display: flex;
     gap: 30px;
+}
+@media (max-width:920px){
+    .cap__box{
+        display:block;
+        text-align: center;
+    }
+    .cap__label{
+        margin-top: 10px;
+        margin-right: auto;
+        margin-left: auto;
+        margin-bottom: 30px;
+    }
+}
+@media (max-width:550px){
+    .cap__label{
+        width: 100%;
+    }
 }
 .button{
     color: #FFF;
@@ -357,6 +511,15 @@ margin-bottom: 25px;
     display: flex;
     gap: 30px;
 }
+@media (max-width:780px) {
+    .cap__list{
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .cap__container{
+        margin-bottom: 0;
+    }
+}
 .cap__title2{
     color: #48555B;
 margin-bottom: 13px;
@@ -383,8 +546,17 @@ letter-spacing: 0.188px;
     background-size: cover;
     margin-right: auto;
     margin-left: auto;
+    max-width: 1438px;
+    width: 100%;
     height: 500px;
     text-align: center;
+}
+@media(max-width:780px){
+    .amaisingBuild {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Додаємо цей стиль для адаптивного фона */
+    }
 }
 .amaisingB__title{
     padding-top: 120px;
@@ -401,6 +573,19 @@ font-weight: 700;
 line-height: 36px; /* 120% */
 letter-spacing: 0.15px;
 }
+@media(max-width:660px){
+    .amaisingB__title{
+        font-size: 25px;
+        padding-top: 100px;
+        width: 100%;
+    }
+    
+}
+@media(max-width:780px){
+    .sub{
+        margin-bottom: 50px;
+    }
+}
 .form-input{
     width: 250px;
 height: 40px;
@@ -415,8 +600,10 @@ border:1px solid blue ;
 }
 .emailForm{
     background-color:#171819;
-    /* height: 100px;
-    max-width: 1440px; */
+    max-width: 1438px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 .emailForm__container{
     display: flex;
@@ -424,6 +611,11 @@ border:1px solid blue ;
     align-items: center;
     padding-top: 30px;
     padding-bottom: 30px;
+}
+@media(max-width:660px){
+    .emailForm__container{
+        display: block;
+    }
 }
 .emailForm__title{
     color: #FFF;
@@ -443,26 +635,58 @@ border:1px solid blue ;
     display: flex;
     align-items: stretch;
 }
-.footer{
-    background: #141A20;
+@media(max-width:660px){
+    .form-email{
+        display: block;
+      text-align: center;
+    }
+    .form-input{
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .emailForm__title{
+        margin-right: 0;
+    }
 }
+.footer{
+    max-width: 1438px;
+    width: 100%;
+    height: 100%;
+    background: #141A20;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .footer__context{
     display: flex;
+
     padding-top: 42px;
     gap: 40px;
-    height: 240px;
+    height: 100%;
     margin-bottom: 40px;
+}
+@media(max-width:890px){
+    .footer__context{
+        display:block ;
+  text-align: center;
+    }
+ 
 }
 .footer__label1{
     margin-bottom: 15px;
     color: #FFF;
-text-align: left;
-
+/* text-align: left; */
 font-family: "OpenSans";
 font-size: 11px;
 font-style: normal;
 font-weight: 400;
 line-height: normal;
+}
+@media(min-width:891px){
+    .footer__label1{
+  text-align: left;
+    }
+ 
 }
 .heade__logo{
     margin-bottom: 15px;
@@ -477,6 +701,13 @@ font-style: normal;
 font-weight: 400;
 line-height: 19px; 
 }
+@media(max-width:890px){
+    .footer__text{
+  margin-left: auto;
+  margin-right: auto;
+    }
+ 
+}
 .footer__list2{
     color: #FFF;
 margin-bottom: 2px;
@@ -486,7 +717,14 @@ font-style: normal;
 font-weight: 600;
 line-height: 25px; 
 }
-
+@media(max-width:890px){
+    .footer__list2{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+    }
+ 
+}
 .footer__menu1{
     color: #FFF;
 padding-top: 25px;
